@@ -58,3 +58,22 @@ skip-magic-trailing-comma = false
 
 # Like Black, automatically detect the appropriate line ending.
 line-ending = "auto"
+
+[tool.poetry]
+name = "cyber-mag-py"
+version = "0.1.0"
+description = ""
+authors = ["Aleksey Devyatkin <aleksei@devyatkin.dev>"]
+license = "LICENSE"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+pytest-cases = "^3.8.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

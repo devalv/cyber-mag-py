@@ -26,7 +26,6 @@ def naive_inplace_matcher(boys: list[str], girls: list[str]) -> list[str]:
     assert boys, 'Внимание, список мальчиков пуст!'
     assert girls, 'Внимание, список девочек пуст!'
     assert len(boys) == len(girls), 'Внимание, кто-то может остаться без пары!'
-    _boys, _girls = boys.copy(), girls.copy()
     boys.sort()
     girls.sort()
     return [f'{boys[i]} и {girls[i]}' for i in range(len(girls))]
@@ -37,11 +36,12 @@ def gen_matcher(boys: list[str], girls: list[str]) -> Generator[str, None, None]
     assert boys, 'Внимание, список мальчиков пуст!'
     assert girls, 'Внимание, список девочек пуст!'
     assert len(boys) == len(girls), 'Внимание, кто-то может остаться без пары!'
+    # TODO: return
     _boys, _girls = boys.copy(), girls.copy()
     _boys.sort()
     _girls.sort()
-    for i in range(len(girls)):
-        yield f'{boys[i]} и {girls[i]}'
+    for i in range(len(_girls)):
+        yield f'{_boys[i]} и {_girls[i]}'
 
 
 @timer
@@ -66,11 +66,6 @@ def stdo_results(boys: list[str], girls: list[str], variant: Variant = Variant.I
 # TODO: tests
 def main():
     b1, g1 = ['Peter', 'Alex', 'John', 'Arthur', 'Richard'], ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha']
-    # extra large lists
-    # ['Peter', 'Alex', 'John', 'Arthur', 'Richard', 'Michael'], ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha']), ['Внимание, кто-то может остаться без пары!']
-    # empty list 1
-    # empty list 2
-
     _, t1 = stdo_results(b1, g1, Variant.GENERATOR)
     _, t2 = stdo_results(b1, g1, Variant.INPLACE)
     print(f'Время работы генератора: {t1}\nВремя работы сортировки: {t2}')  # noqa T20
