@@ -54,7 +54,7 @@ hw1_p2_cases: tuple[ValidationCase, ...] = (
 
 
 @pytest.mark.parametrize('validation_case', hw1_p2_cases)
-def test_naive_bad_cases(validation_case: ValidationCase, capsys):
+def test_hw1_p2(validation_case: ValidationCase, capsys):
     stdo_results(validation_case.boys, validation_case.girls, validation_case.matcher_variant)
     stdout: str = capsys.readouterr().out
     assert stdout == validation_case.expected_result
