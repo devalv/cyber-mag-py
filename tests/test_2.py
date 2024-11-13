@@ -2,61 +2,59 @@ from dataclasses import dataclass
 
 import pytest
 
-from hw1.p2 import gen_matcher, naive_inplace_matcher
+from hw1.p2 import Variant, stdo_results
 
 
 @dataclass(frozen=True, slots=True)
 class ValidationCase:
     boys: list
     girls: list
-    expected_result: list | None = None
-    expected_error: str | None = None
+    matcher_variant: Variant
+    expected_result: str
 
 
-bad_cases: tuple[ValidationCase, ...] = (
-    ValidationCase(list(), ['Masha'], None, 'Внимание, список мальчиков пуст!'),
-    ValidationCase(['Peter'], list(), None, 'Внимание, список девочек пуст!'),
-    ValidationCase(list(), list(), None, 'Внимание, список мальчиков пуст!'),
+hw1_p2_cases: tuple[ValidationCase, ...] = (
+    ValidationCase(list(), ['Masha'], Variant.INPLACE, 'Результат:\nВнимание, список мальчиков пуст!\n'),
+    ValidationCase(list(), ['Masha'], Variant.GENERATOR, 'Результат:\nВнимание, список мальчиков пуст!\n'),
+    ValidationCase(['Peter'], list(), Variant.INPLACE, 'Результат:\nВнимание, список девочек пуст!\n'),
+    ValidationCase(['Peter'], list(), Variant.GENERATOR, 'Результат:\nВнимание, список девочек пуст!\n'),
+    ValidationCase(list(), list(), Variant.INPLACE, 'Результат:\nВнимание, список мальчиков пуст!\n'),
+    ValidationCase(list(), list(), Variant.GENERATOR, 'Результат:\nВнимание, список мальчиков пуст!\n'),
     ValidationCase(
         ['Peter', 'Alex', 'John', 'Arthur', 'Richard', 'Michael'],
         ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha'],
-        None,
-        'Внимание, кто-то может остаться без пары!',
+        Variant.INPLACE,
+        'Результат:\nВнимание, кто-то может остаться без пары!\n',
     ),
-)
-
-
-@pytest.mark.parametrize('validation_case', bad_cases)
-def test_naive_bad_cases(validation_case: ValidationCase):
-    try:
-        r = naive_inplace_matcher(validation_case.boys, validation_case.girls)
-    except AssertionError as err:
-        assert err.args[0] == validation_case.expected_error
-    else:
-        raise AssertionError(''.join(r))
-
-
-@pytest.mark.parametrize('validation_case', bad_cases)
-def test_gen_bad_cases(validation_case: ValidationCase):
-    try:
-        r = gen_matcher(validation_case.boys, validation_case.girls)
-    except AssertionError as err:
-        assert err.args[0] == validation_case.expected_error
-    else:
-        raise AssertionError(''.join(r))
-
-
-good_cases: tuple[ValidationCase, ...] = (
+    ValidationCase(
+        ['Peter', 'Alex', 'John', 'Arthur', 'Richard', 'Michael'],
+        ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha'],
+        Variant.GENERATOR,
+        'Результат:\nВнимание, кто-то может остаться без пары!\n',
+    ),
     ValidationCase(
         ['Peter', 'Alex', 'John', 'Arthur', 'Richard'],
         ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha'],
-        ['Alex и Emma', 'Arthur и Kate', 'John и Kira', 'Peter и Liza', 'Richard и Trisha'],
-        None,
+        Variant.INPLACE,
+        'Результат:\nИдеальные пары:\nAlex и Emma\nArthur и Kate\nJohn и Kira\nPeter и Liza\nRichard и Trisha\n',
+    ),
+    ValidationCase(
+        ['Peter', 'Alex', 'John', 'Arthur', 'Richard'],
+        ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha'],
+        Variant.GENERATOR,
+        'Результат:\nИдеальные пары:\nAlex и Emma\nArthur и Kate\nJohn и Kira\nPeter и Liza\nRichard и Trisha\n',
+    ),
+    ValidationCase(
+        ['Peter', 'Alex', 'John', 'Arthur', 'Richard'],
+        ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha'],
+        3,  # type: ignore
+        'Результат:\nВариант 3 не реализован!\n',
     ),
 )
 
 
-@pytest.mark.parametrize('validation_case', good_cases)
-def test_naive_good_cases(validation_case: ValidationCase):
-    result = naive_inplace_matcher(validation_case.boys, validation_case.girls)
-    assert result == validation_case.expected_result
+@pytest.mark.parametrize('validation_case', hw1_p2_cases)
+def test_naive_bad_cases(validation_case: ValidationCase, capsys):
+    stdo_results(validation_case.boys, validation_case.girls, validation_case.matcher_variant)
+    stdout: str = capsys.readouterr().out
+    assert stdout == validation_case.expected_result
