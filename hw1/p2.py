@@ -42,11 +42,11 @@ def stdo_results(boys: list[str], girls: list[str], variant: Variant = Variant.I
             case _:
                 raise NotImplementedError(f'Вариант {variant} не реализован!')
     except (AssertionError, NotImplementedError) as err:
-        print(f'Результат:\n{err}')  # noqa T20
+        print(err)  # noqa T201
     else:
-        print('Результат:\nИдеальные пары:')  # noqa T20
+        print('Идеальные пары:')  # noqa T201
         for pair in result:
-            print(pair)  # noqa T20
+            print(pair)  # noqa T201
 
 
 def main():

@@ -14,41 +14,41 @@ class ValidationCase:
 
 
 hw1_p2_cases: tuple[ValidationCase, ...] = (
-    ValidationCase(list(), ['Masha'], Variant.INPLACE, 'Результат:\nВнимание, список мальчиков пуст!\n'),
-    ValidationCase(list(), ['Masha'], Variant.GENERATOR, 'Результат:\nВнимание, список мальчиков пуст!\n'),
-    ValidationCase(['Peter'], list(), Variant.INPLACE, 'Результат:\nВнимание, список девочек пуст!\n'),
-    ValidationCase(['Peter'], list(), Variant.GENERATOR, 'Результат:\nВнимание, список девочек пуст!\n'),
-    ValidationCase(list(), list(), Variant.INPLACE, 'Результат:\nВнимание, список мальчиков пуст!\n'),
-    ValidationCase(list(), list(), Variant.GENERATOR, 'Результат:\nВнимание, список мальчиков пуст!\n'),
+    ValidationCase(list(), ['Masha'], Variant.INPLACE, 'Внимание, список мальчиков пуст!\n'),
+    ValidationCase(list(), ['Masha'], Variant.GENERATOR, 'Внимание, список мальчиков пуст!\n'),
+    ValidationCase(['Peter'], list(), Variant.INPLACE, 'Внимание, список девочек пуст!\n'),
+    ValidationCase(['Peter'], list(), Variant.GENERATOR, 'Внимание, список девочек пуст!\n'),
+    ValidationCase(list(), list(), Variant.INPLACE, 'Внимание, список мальчиков пуст!\n'),
+    ValidationCase(list(), list(), Variant.GENERATOR, 'Внимание, список мальчиков пуст!\n'),
     ValidationCase(
         ['Peter', 'Alex', 'John', 'Arthur', 'Richard', 'Michael'],
         ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha'],
         Variant.INPLACE,
-        'Результат:\nВнимание, кто-то может остаться без пары!\n',
+        'Внимание, кто-то может остаться без пары!\n',
     ),
     ValidationCase(
         ['Peter', 'Alex', 'John', 'Arthur', 'Richard', 'Michael'],
         ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha'],
         Variant.GENERATOR,
-        'Результат:\nВнимание, кто-то может остаться без пары!\n',
+        'Внимание, кто-то может остаться без пары!\n',
     ),
     ValidationCase(
         ['Peter', 'Alex', 'John', 'Arthur', 'Richard'],
         ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha'],
         Variant.INPLACE,
-        'Результат:\nИдеальные пары:\nAlex и Emma\nArthur и Kate\nJohn и Kira\nPeter и Liza\nRichard и Trisha\n',
+        'Идеальные пары:\nAlex и Emma\nArthur и Kate\nJohn и Kira\nPeter и Liza\nRichard и Trisha\n',
     ),
     ValidationCase(
         ['Peter', 'Alex', 'John', 'Arthur', 'Richard'],
         ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha'],
         Variant.GENERATOR,
-        'Результат:\nИдеальные пары:\nAlex и Emma\nArthur и Kate\nJohn и Kira\nPeter и Liza\nRichard и Trisha\n',
+        'Идеальные пары:\nAlex и Emma\nArthur и Kate\nJohn и Kira\nPeter и Liza\nRichard и Trisha\n',
     ),
     ValidationCase(
         ['Peter', 'Alex', 'John', 'Arthur', 'Richard'],
         ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha'],
         3,  # type: ignore
-        'Результат:\nВариант 3 не реализован!\n',
+        'Вариант 3 не реализован!\n',
     ),
 )
 
