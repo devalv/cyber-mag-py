@@ -25,7 +25,7 @@ def sum_distance(frm: int, to: int) -> int:
 def main():
     frm, to = map(int, input('Введите два числа через пробел: ').split())
     result: int = sum_distance(frm, to)
-    print(f"Результат: {result}")  # noqa T201
+    print(f'Результат: {result}')  # noqa T201
 
 
 if __name__ == '__main__':
