@@ -83,3 +83,11 @@ def test_search_by_created_at(validation_case: CreatedAtSearchCase):
     assert validation_case.expected_result == validation_case.transactions.search_by_created_at(  # type: ignore[union-attr]
         validation_case.date_to_find
     )
+
+
+def test_default_sort():
+    raise AssertionError
+
+
+def test_default_reverse_sort():
+    raise AssertionError
