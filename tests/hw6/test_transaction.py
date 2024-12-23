@@ -77,6 +77,13 @@ transaction_lt_cases: tuple[TransactionCase, ...] = (
         ),
         expected_result=False,
     ),
+    TransactionCase(
+        transaction1=Transaction(
+            amount=Decimal('1.0'), created_at=datetime.strptime('2024-01-01', '%Y-%m-%d'), sid='1'
+        ),
+        transaction2=1,
+        expected_result=False,
+    ),
 )
 
 
@@ -111,6 +118,13 @@ transaction_le_cases: tuple[TransactionCase, ...] = (
         transaction2=Transaction(
             amount=Decimal('1.0'), created_at=datetime.strptime('2024-01-01', '%Y-%m-%d'), sid='1'
         ),
+        expected_result=False,
+    ),
+    TransactionCase(
+        transaction1=Transaction(
+            amount=Decimal('1.0'), created_at=datetime.strptime('2024-01-01', '%Y-%m-%d'), sid='1'
+        ),
+        transaction2=1,
         expected_result=False,
     ),
 )
@@ -149,6 +163,13 @@ transaction_gt_cases: tuple[TransactionCase, ...] = (
         ),
         expected_result=True,
     ),
+    TransactionCase(
+        transaction1=Transaction(
+            amount=Decimal('1.0'), created_at=datetime.strptime('2024-01-01', '%Y-%m-%d'), sid='1'
+        ),
+        transaction2=1,
+        expected_result=False,
+    ),
 )
 
 
@@ -184,6 +205,13 @@ transaction_ge_cases: tuple[TransactionCase, ...] = (
             amount=Decimal('1.0'), created_at=datetime.strptime('2024-01-01', '%Y-%m-%d'), sid='1'
         ),
         expected_result=True,
+    ),
+    TransactionCase(
+        transaction1=Transaction(
+            amount=Decimal('1.0'), created_at=datetime.strptime('2024-01-01', '%Y-%m-%d'), sid='1'
+        ),
+        transaction2=1,
+        expected_result=False,
     ),
 )
 

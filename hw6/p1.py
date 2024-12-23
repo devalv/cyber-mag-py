@@ -42,16 +42,24 @@ class Transaction:
             return NotImplemented
         return self.sid == other.sid
 
-    def __lt__(self, other: 'Transaction') -> bool:
+    def __lt__(self, other: object) -> bool:
+        if not isinstance(other, Transaction):
+            return NotImplemented
         return self.created_at < other.created_at
 
-    def __le__(self, other: 'Transaction') -> bool:
+    def __le__(self, other: object) -> bool:
+        if not isinstance(other, Transaction):
+            return NotImplemented
         return self.created_at <= other.created_at
 
-    def __gt__(self, other: 'Transaction') -> bool:
+    def __gt__(self, other: object) -> bool:
+        if not isinstance(other, Transaction):
+            return NotImplemented
         return self.created_at > other.created_at
 
-    def __ge__(self, other: 'Transaction') -> bool:
+    def __ge__(self, other: object) -> bool:
+        if not isinstance(other, Transaction):
+            return NotImplemented
         return self.created_at >= other.created_at
 
 
