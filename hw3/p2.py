@@ -17,7 +17,7 @@ def trim_and_repeat(text: str, offset: int = 0, repetitions: int = 1) -> str:
 def main():
     tx = input('Введите текст: ').strip()
     offset, repetitions = map(int, input('Введите offset и  repetitions через пробел: ').split())
-    result: int = trim_and_repeat(text=tx, offset=offset, repetitions=repetitions)
+    result: int = trim_and_repeat(text=tx, offset=offset, repetitions=repetitions)  # type: ignore[assignment]
     print(f'Результат: {result}')  # noqa T201
 
 

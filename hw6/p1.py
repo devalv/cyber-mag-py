@@ -29,6 +29,7 @@ class Transaction:
         sid: Уникальный идентификатор транзакции, например, uuid4()[:8].
         created_at: Время создания транзакции (UTC).
     """
+
     sid: str
     created_at: datetime
     amount: Decimal
@@ -36,7 +37,9 @@ class Transaction:
     def __repr__(self) -> str:
         return f'{self.sid}\t{self.created_at}\t{self.amount}'
 
-    def __eq__(self, other: 'Transaction') -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Transaction):
+            return NotImplemented
         return self.sid == other.sid
 
     def __lt__(self, other: 'Transaction') -> bool:
@@ -57,6 +60,7 @@ class TransactionHistory(UserList):
 
     Основная идея, что если потребуется расширить операции над множествами - их `удобно` будет расширить тут + UserList хоть и медленнее, зато, безопасен для расширения.
     """
+
     pass
 
 
@@ -64,12 +68,12 @@ class TransactionHistory(UserList):
 class Account:
     name: str
     balance: Decimal
-    sid: str = None
-    history: TransactionHistory = None
+    sid: str | None = None
+    history: TransactionHistory | None = None
 
     def __post_init__(self):
         if self.sid is None:
-            self.sid = f"{uuid4()}"[:8]
+            self.sid = f'{uuid4()}'[:8]
         if self.history is None:
             self.history = TransactionHistory()
 
@@ -79,7 +83,9 @@ class Account:
     def __repr__(self):
         return f'{self.name}\t{self.balance}\t{self.history}'
 
-    def __eq__(self, other: 'Account') -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Account):
+            return NotImplemented
         return self.sid == other.sid
 
     def _balance_operation(self, amount: Decimal, increase: bool) -> None:
@@ -94,7 +100,7 @@ class Account:
             self.balance += amount
         else:
             self.balance -= amount
-        self.history.append(Transaction(amount=amount, created_at=datetime.now(tz=timezone.utc), sid=f"{uuid4()}"[:8]))
+        self.history.append(Transaction(amount=amount, created_at=datetime.now(tz=timezone.utc), sid=f'{uuid4()}'[:8]))  # type: ignore[union-attr]
 
     def deposit(self, amount: Decimal) -> None:
         """Увеличить баланс."""

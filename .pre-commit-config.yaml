@@ -31,5 +31,5 @@ repos:
     rev: v1.4.1
     hooks:
       - id: mypy
-        args: [--config-file=pyproject.toml]
+        args: [--config-file=pyproject.toml, --check-untyped-defs]
         additional_dependencies: [ tokenize-rt==3.2.0 ]

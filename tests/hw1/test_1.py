@@ -19,7 +19,7 @@ hw1_p1_cases: tuple[ValidationCase, ...] = (
     ValidationCase('te', 'te'),
     ValidationCase('t', 't'),
     ValidationCase('', 'Внимание, строка пуста!', True),
-    ValidationCase(123, 'Внимание, введено не строковое значение!', True),  # type: ignore
+    ValidationCase(123, 'Внимание, введено не строковое значение!', True),  # type: ignore[arg-type]
 )
 
 

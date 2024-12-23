@@ -8,7 +8,7 @@ ignore_missing_imports = true
 [tool.ruff]
 preview = true # (E271,E203) https://docs.astral.sh/ruff/preview/
 
-unfixable = [
+lint.unfixable = [
     "ERA", # do not autoremove commented out code
 ]
 
@@ -17,7 +17,7 @@ exclude = [
     "__pycache__",
 ]
 
-ignore = [
+lint.ignore = [
     "A001", # Variable {name} is shadowing a Python builtin
     "A002", # Argument {name} is shadowing a Python builtin
     "A003", # Class attribute {name} is shadowing a Python builtin
@@ -29,7 +29,7 @@ ignore = [
 
 ]
 
-select = [
+lint.select = [
     "A", # same flake8-builtins
     "B", # same flake8-bugbear
     "E", # pycodestyle
