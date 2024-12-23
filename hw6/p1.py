@@ -59,9 +59,14 @@ class TransactionHistory(UserList):
     """История транзакций банковского аккаунта.
 
     Основная идея, что если потребуется расширить операции над множествами - их `удобно` будет расширить тут + UserList хоть и медленнее, зато, безопасен для расширения.
+    Рассматривал вариант с dict-подобным хранением, но, подумал, что поиск операции по sid, с одной стороны, будет проходить не так часто, а с другой стороны - не особо удобно будет его сортировать.
     """
 
-    pass
+    def search_by_sid(self, sid: str) -> Transaction | None:
+        return next((transaction for transaction in self if transaction.sid == sid), None)
+
+    def search_by_created_at(self, created_at: datetime) -> Transaction | None:
+        return next((transaction for transaction in self if transaction.created_at == created_at), None)
 
 
 @dataclass(slots=True)
@@ -109,14 +114,6 @@ class Account:
     def withdraw(self, amount: Decimal) -> None:
         """Уменьшить баланс."""
         self._balance_operation(amount=amount, increase=False)
-
-    @property
-    def last_transaction(self) -> Transaction | None:
-        return self.history[-1] if self.history else None
-
-    @property
-    def first_transaction(self) -> Transaction | None:
-        return self.history[0] if self.history else None
 
 
 def main() -> None:
