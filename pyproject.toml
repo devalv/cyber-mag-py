@@ -1,8 +1,9 @@
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 warn_return_any = true
 warn_unused_configs = true
 ignore_missing_imports = true
+
 
 [tool.ruff]
 preview = true # (E271,E203) https://docs.astral.sh/ruff/preview/
@@ -43,8 +44,8 @@ select = [
 # Same as Black.(for future format in ruff)
 line-length = 120
 
-# Assume Python 3.11
-target-version = "py311"
+# Assume Python 3.12
+target-version = "py312"
 
 [tool.ruff.format]
 # Like Black, use single quotes for strings.
@@ -66,9 +67,11 @@ description = ""
 authors = ["Aleksey Devyatkin <aleksei@devyatkin.dev>"]
 license = "LICENSE"
 readme = "README.md"
+package-mode = false
+
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"
