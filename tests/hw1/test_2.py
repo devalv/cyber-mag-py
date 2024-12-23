@@ -47,7 +47,7 @@ hw1_p2_cases: tuple[ValidationCase, ...] = (
     ValidationCase(
         ['Peter', 'Alex', 'John', 'Arthur', 'Richard'],
         ['Kate', 'Liza', 'Kira', 'Emma', 'Trisha'],
-        3,  # type: ignore
+        3,  # type: ignore[arg-type]
         'Вариант 3 не реализован!\n',
     ),
 )

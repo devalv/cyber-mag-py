@@ -48,7 +48,7 @@ def fake_purchase_log_content() -> list[str]:
 def fake_purchase_log_file(fs, fake_purchase_log_content):
     with open('./pytest_purchase_log.txt', encoding='utf-8', mode='w') as f:
         f.writelines(fake_purchase_log_content)
-    yield f.file_path
+    yield f.file_path  # type: ignore[attr-defined]
 
 
 def test_purchase_log_reader(fake_purchase_log_file):

@@ -156,5 +156,5 @@ testing = ["filelock"]
 
 [metadata]
 lock-version = "2.0"
-python-versions = "^3.11"
+python-versions = "^3.12"
 content-hash = "971125043b7aa6398ed1ac76955c3a14f27a23bf2d1287b75c4d2b12dc7f4cea"
