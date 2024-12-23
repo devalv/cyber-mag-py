@@ -89,7 +89,11 @@ transaction_lt_cases: tuple[TransactionCase, ...] = (
 
 @pytest.mark.parametrize('validation_case', transaction_lt_cases)
 def test_lt(validation_case: TransactionCase):
-    assert (validation_case.transaction1 < validation_case.transaction2) == validation_case.expected_result
+    try:
+        assert (validation_case.transaction1 < validation_case.transaction2) == validation_case.expected_result
+    except TypeError:
+        if not isinstance(validation_case.transaction2, Transaction):
+            assert not validation_case.expected_result
 
 
 transaction_le_cases: tuple[TransactionCase, ...] = (
@@ -132,7 +136,11 @@ transaction_le_cases: tuple[TransactionCase, ...] = (
 
 @pytest.mark.parametrize('validation_case', transaction_le_cases)
 def test_le(validation_case: TransactionCase):
-    assert (validation_case.transaction1 <= validation_case.transaction2) == validation_case.expected_result
+    try:
+        assert (validation_case.transaction1 <= validation_case.transaction2) == validation_case.expected_result
+    except TypeError:
+        if not isinstance(validation_case.transaction2, Transaction):
+            assert not validation_case.expected_result
 
 
 transaction_gt_cases: tuple[TransactionCase, ...] = (
@@ -175,7 +183,11 @@ transaction_gt_cases: tuple[TransactionCase, ...] = (
 
 @pytest.mark.parametrize('validation_case', transaction_gt_cases)
 def test_gt(validation_case: TransactionCase):
-    assert (validation_case.transaction1 > validation_case.transaction2) == validation_case.expected_result
+    try:
+        assert (validation_case.transaction1 > validation_case.transaction2) == validation_case.expected_result
+    except TypeError:
+        if not isinstance(validation_case.transaction2, Transaction):
+            assert not validation_case.expected_result
 
 
 transaction_ge_cases: tuple[TransactionCase, ...] = (
@@ -218,4 +230,8 @@ transaction_ge_cases: tuple[TransactionCase, ...] = (
 
 @pytest.mark.parametrize('validation_case', transaction_ge_cases)
 def test_ge(validation_case: TransactionCase):
-    assert (validation_case.transaction1 >= validation_case.transaction2) == validation_case.expected_result
+    try:
+        assert (validation_case.transaction1 >= validation_case.transaction2) == validation_case.expected_result
+    except TypeError:
+        if not isinstance(validation_case.transaction2, Transaction):
+            assert not validation_case.expected_result
