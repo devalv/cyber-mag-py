@@ -70,10 +70,19 @@ class TransactionHistory(UserList):
     Рассматривал вариант с dict-подобным хранением, но, подумал, что поиск операции по sid, с одной стороны, будет проходить не так часто, а с другой стороны - не особо удобно будет его сортировать.
     """
 
-    def search_by_sid(self, sid: str) -> Transaction | None:
+    def __init__(self, transactions: list[Transaction] | None = None) -> None:
+        if transactions and not all(isinstance(transaction, Transaction) for transaction in transactions):
+            raise TypeError
+        super().__init__(transactions)
+
+    def search_by_sid(self, sid: str | None) -> Transaction | None:
+        if sid is None:
+            return None
         return next((transaction for transaction in self if transaction.sid == sid), None)
 
-    def search_by_created_at(self, created_at: datetime) -> Transaction | None:
+    def search_by_created_at(self, created_at: datetime | None) -> Transaction | None:
+        if created_at is None:
+            return None
         return next((transaction for transaction in self if transaction.created_at == created_at), None)
 
 
