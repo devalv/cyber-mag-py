@@ -87,6 +87,12 @@ class TransactionHistory(UserList):
             return None
         return next((transaction for transaction in self if transaction.created_at == created_at), None)
 
+    def rollback_transaction_by_sid(self, sid: str | None) -> None:
+        if sid is None:
+            return None
+        self.remove(self.search_by_sid(sid))
+        return None
+
 
 @dataclass(slots=True)
 class Account:
