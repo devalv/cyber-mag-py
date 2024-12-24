@@ -1,4 +1,4 @@
 tests:
-	poetry run pytest
+	poetry run pytest -n auto
 
 .PHONY: tests
