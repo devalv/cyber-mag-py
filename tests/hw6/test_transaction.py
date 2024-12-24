@@ -260,5 +260,5 @@ transaction_str_cases: tuple[TransactionStrCase, ...] = (
 
 
 @pytest.mark.parametrize('validation_case', transaction_str_cases)
-def test_str(validation_case: TransactionStrCase):
-    assert str(validation_case.transaction1) == validation_case.expected_result
+def test_repr(validation_case: TransactionStrCase):
+    assert f'{validation_case.transaction1!r}' == validation_case.expected_result

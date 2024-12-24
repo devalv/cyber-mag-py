@@ -35,7 +35,7 @@ class Transaction:
     amount: Decimal
     increase: bool
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         math_sight: str = '+' if self.increase else '-'
         return f'{self.sid}\t{self.created_at}\t{math_sight}\t{self.amount}'
 
@@ -111,7 +111,7 @@ class Account:
         return f'{self.name} - {self.balance}'
 
     def __repr__(self):
-        return f'{self.name}\t{self.balance}\t{self.history}'
+        return f'{self.sid}\t{self.name}\t{self.balance}\t{self.history}'
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Account):
@@ -147,9 +147,23 @@ class Account:
         """Уменьшить баланс."""
         self._balance_operation(amount=amount, increase=False)
 
+    def rollback(self, sid: str | None) -> None:
+        trans: Transaction | None = self.history.search_by_sid(sid)  # type: ignore[union-attr]
+        if trans is None:
+            return None
+        if trans.increase:
+            self.balance -= trans.amount
+        else:
+            self.balance += trans.amount
+        self.history.rollback_by_sid(sid=sid)  # type: ignore[union-attr]
+
 
 def main() -> None:
-    pass
+    account: Account = Account(name='Test', balance=Decimal('100.0'))
+    account.deposit(Decimal('10.0'))
+    account.withdraw(Decimal('20.0'))
+    account.deposit(Decimal('30.0'))
+    print(f'{account!r}\n{account}')  # noqa T201
 
 
 if __name__ == '__main__':
