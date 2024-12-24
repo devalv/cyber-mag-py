@@ -33,9 +33,11 @@ class Transaction:
     sid: str
     created_at: datetime
     amount: Decimal
+    increase: bool
 
-    def __repr__(self) -> str:
-        return f'{self.sid}\t{self.created_at}\t{self.amount}'
+    def __str__(self) -> str:
+        math_sight: str = '+' if self.increase else '-'
+        return f'{self.sid}\t{self.created_at}\t{math_sight}\t{self.amount}'
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Transaction):
@@ -122,7 +124,14 @@ class Account:
             self.balance += amount
         else:
             self.balance -= amount
-        self.history.append(Transaction(amount=amount, created_at=datetime.now(tz=timezone.utc), sid=f'{uuid4()}'[:8]))  # type: ignore[union-attr]
+        self.history.append(  # type: ignore[union-attr]
+            Transaction(
+                amount=amount,
+                created_at=datetime.now(tz=timezone.utc),
+                sid=f'{uuid4()}'[:8],
+                increase=increase,
+            )
+        )
 
     def deposit(self, amount: Decimal) -> None:
         """Увеличить баланс."""
